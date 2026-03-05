@@ -1,0 +1,32 @@
+version: 2
+
+models:
+  - name: stg_customers
+    description: "Clientes limpios y estandarizados desde Airbyte."
+    columns:
+      - name: customer_id
+        description: "PK del cliente."
+        tests:
+          - unique
+          - not_null
+      - name: email
+        description: "Email normalizado."
+        tests:
+          - not_null
+      - name: plan
+        description: "Plan del cliente (free/premium)."
+
+  - name: stg_orders
+    description: "Órdenes limpias y estandarizadas desde Airbyte."
+    columns:
+      - name: order_id
+        description: "PK de la orden."
+        tests:
+          - unique
+          - not_null
+      - name: customer_id
+        description: "FK al cliente."
+        tests:
+          - not_null
+      - name: total_amount
+        description: "Monto total (quantity * unit_price)."

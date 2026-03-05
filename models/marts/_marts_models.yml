@@ -1,0 +1,33 @@
+version: 2
+
+models:
+  - name: mart_sales_summary
+    description: "OBT con resumen de ventas agregado por fecha, cliente y producto. Listo para consumo en herramientas de BI."
+    columns:
+      - name: order_date
+        description: "Fecha de la venta."
+        tests:
+          - not_null
+      - name: customer_id
+        description: "ID del cliente."
+        tests:
+          - not_null
+      - name: customer_name
+        description: "Nombre del cliente."
+        tests:
+          - not_null
+      - name: product_name
+        description: "Nombre del producto."
+        tests:
+          - not_null
+      - name: total_orders
+        description: "Número de órdenes agrupadas."
+        tests:
+          - not_null
+      - name: total_revenue
+        description: "Ingreso total generado."
+        tests:
+          - not_null
+          - dbt_expectations.expect_column_values_to_be_between:
+              min_value: 0
+              max_value: 1000000

@@ -1,0 +1,26 @@
+order_id,customer_id,product,category,quantity,unit_price,order_date,status
+1001,1,Laptop Pro,Electronics,1,1200.00,2023-02-01,completed
+1002,3,Auriculares BT,Electronics,2,85.50,2023-02-15,completed
+1003,5,Silla Ergonómica,Furniture,1,350.00,2023-03-05,completed
+1004,2,Mouse Inalámbrico,Electronics,1,45.00,2023-03-20,completed
+1005,7,Monitor 27",Electronics,1,420.00,2023-04-10,completed
+1006,1,Teclado Mecánico,Electronics,1,120.00,2023-04-25,completed
+1007,9,Escritorio Standing,Furniture,1,680.00,2023-05-08,completed
+1008,4,Webcam HD,Electronics,1,95.00,2023-05-22,completed
+1009,11,Laptop Pro,Electronics,1,1200.00,2023-06-03,completed
+1010,6,Auriculares BT,Electronics,3,85.50,2023-06-18,completed
+1011,13,Silla Ergonómica,Furniture,2,350.00,2023-07-02,completed
+1012,2,Monitor 27",Electronics,1,420.00,2023-07-15,completed
+1013,15,Mouse Inalámbrico,Electronics,2,45.00,2023-07-28,completed
+1014,8,Teclado Mecánico,Electronics,1,120.00,2023-08-10,completed
+1015,17,Webcam HD,Electronics,2,95.00,2023-08-24,completed
+1016,3,Escritorio Standing,Furniture,1,680.00,2023-09-05,completed
+1017,19,Laptop Pro,Electronics,1,1200.00,2023-09-18,completed
+1018,10,Auriculares BT,Electronics,1,85.50,2023-10-02,completed
+1019,5,Monitor 27",Electronics,1,420.00,2023-10-16,completed
+1020,12,Silla Ergonómica,Furniture,1,350.00,2023-10-30,completed
+1021,1,Mouse Inalámbrico,Electronics,3,45.00,2023-11-12,completed
+1022,14,Teclado Mecánico,Electronics,2,120.00,2023-11-25,completed
+1023,7,Webcam HD,Electronics,1,95.00,2023-12-08,completed
+1024,16,Laptop Pro,Electronics,1,1200.00,2023-12-15,completed
+1025,20,Monitor 27",Electronics,1,420.00,2023-12-28,completed

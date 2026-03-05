@@ -2,22 +2,39 @@ version: 2
 
 models:
   - name: stg_customers
-    description: "Clientes limpios y estandarizados desde Airbyte."
+    description: "Clientes limpios y estandarizados desde Airbyte. Email normalizado a minúsculas, fechas casteadas."
     columns:
       - name: customer_id
         description: "PK del cliente."
         tests:
           - unique
           - not_null
-      - name: email
-        description: "Email normalizado."
+      - name: full_name
+        description: "Nombre completo del cliente."
         tests:
           - not_null
+      - name: email
+        description: "Email normalizado en minúsculas."
+        tests:
+          - not_null
+          - dbt_expectations.expect_column_values_to_match_regex:
+              regex: "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$"
       - name: plan
-        description: "Plan del cliente (free/premium)."
+        description: "Plan del cliente: free o premium."
+        tests:
+          - accepted_values:
+              values: ['free', 'premium']
+      - name: country
+        description: "País del cliente."
+        tests:
+          - not_null
+      - name: signup_date
+        description: "Fecha de registro del cliente."
+        tests:
+          - not_null
 
   - name: stg_orders
-    description: "Órdenes limpias y estandarizadas desde Airbyte."
+    description: "Órdenes limpias y estandarizadas desde Airbyte. Incluye total_amount calculado."
     columns:
       - name: order_id
         description: "PK de la orden."
@@ -28,5 +45,34 @@ models:
         description: "FK al cliente."
         tests:
           - not_null
+      - name: product_name
+        description: "Nombre del producto comprado."
+        tests:
+          - not_null
+      - name: quantity
+        description: "Unidades compradas."
+        tests:
+          - not_null
+          - dbt_expectations.expect_column_values_to_be_between:
+              min_value: 1
+              max_value: 1000
+      - name: unit_price
+        description: "Precio unitario del producto."
+        tests:
+          - not_null
+          - dbt_expectations.expect_column_values_to_be_between:
+              min_value: 0
+              max_value: 10000
       - name: total_amount
         description: "Monto total (quantity * unit_price)."
+        tests:
+          - not_null
+      - name: order_date
+        description: "Fecha de la orden."
+        tests:
+          - not_null
+      - name: status
+        description: "Estado de la orden."
+        tests:
+          - accepted_values:
+              values: ['completed', 'pending', 'cancelled']

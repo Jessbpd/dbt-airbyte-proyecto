@@ -1,0 +1,30 @@
+version: 2
+
+models:
+  - name: int_customer_orders
+    description: "Órdenes enriquecidas con datos del cliente mediante LEFT JOIN. Base para los modelos mart."
+    columns:
+      - name: order_id
+        description: "PK de la orden."
+        tests:
+          - unique
+          - not_null
+      - name: customer_id
+        description: "FK al cliente."
+        tests:
+          - not_null
+      - name: customer_name
+        description: "Nombre del cliente."
+        tests:
+          - not_null
+      - name: total_amount
+        description: "Monto total de la orden."
+        tests:
+          - not_null
+          - dbt_expectations.expect_column_values_to_be_between:
+              min_value: 0
+              max_value: 100000
+      - name: order_date
+        description: "Fecha de la orden."
+        tests:
+          - not_null

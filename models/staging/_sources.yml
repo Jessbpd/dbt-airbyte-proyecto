@@ -2,33 +2,61 @@ version: 2
 
 sources:
   - name: customers_source
-    description: "Datos de clientes cargados por Airbyte desde CSV"
+    description: "Datos de clientes cargados por Airbyte desde CSV público en GitHub."
     schema: airbyte_raw
     database: airbyte_db
     tables:
       - name: customers
-        description: "Tabla de clientes cargada por Airbyte"
+        description: "Tabla de clientes sincronizada por Airbyte."
         columns:
           - name: customer_id
+            description: "Identificador único del cliente."
             tests:
               - unique
               - not_null
           - name: email
+            description: "Correo electrónico del cliente."
+            tests:
+              - not_null
+              - dbt_expectations.expect_column_values_to_match_regex:
+                  regex: "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$"
+          - name: plan
+            description: "Plan del cliente."
+            tests:
+              - accepted_values:
+                  values: ['free', 'premium']
+          - name: country
+            description: "País del cliente."
             tests:
               - not_null
 
   - name: orders_source
-    description: "Datos de órdenes cargados por Airbyte desde CSV"
+    description: "Datos de órdenes cargados por Airbyte desde CSV público en GitHub."
     schema: airbyte_raw
     database: airbyte_db
     tables:
       - name: orders
-        description: "Tabla de órdenes cargada por Airbyte"
+        description: "Tabla de órdenes sincronizada por Airbyte."
         columns:
           - name: order_id
+            description: "Identificador único de la orden."
             tests:
               - unique
               - not_null
           - name: customer_id
+            description: "FK al cliente que realizó la orden."
             tests:
               - not_null
+          - name: unit_price
+            description: "Precio unitario del producto."
+            tests:
+              - not_null
+              - dbt_expectations.expect_column_values_to_be_between:
+                  min_value: 0
+                  max_value: 10000
+          - name: quantity
+            description: "Cantidad de unidades compradas."
+            tests:
+              - dbt_expectations.expect_column_values_to_be_between:
+                  min_value: 1
+                  max_value: 1000
